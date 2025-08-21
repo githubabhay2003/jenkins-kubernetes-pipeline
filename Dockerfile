@@ -1,5 +1,9 @@
-# Use an official Apache httpd server image as a base
+# Start from the official web server image
 FROM httpd:2.4
 
-# Copy the website files from the current directory to the web server's public directory
+# Switch to the root user to install software, then install curl
+USER root
+RUN apt-get update && apt-get install -y curl
+
+# Copy our website file into the container
 COPY ./index.html /usr/local/apache2/htdocs/
